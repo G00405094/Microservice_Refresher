@@ -9,7 +9,7 @@ import java.util.List;
 public class ProductService {
     private List<Product> productlist = new ArrayList<Product>();
 
-    public List<Product> getAllProducts() {
+    public List<Product> getProductList() {
         return productlist;
     }
     public Product addProduct(Product product) {

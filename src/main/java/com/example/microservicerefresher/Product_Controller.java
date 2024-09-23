@@ -1,6 +1,7 @@
 package com.example.microservicerefresher;
 
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -8,8 +9,11 @@ import java.util.List;
 
 @RestController
 public class Product_Controller {
-
-    private List<Product> productlist = new ArrayList<Product>();
+    private ProductService productService;
+    @Autowired
+    public Product_Controller(ProductService productService) {
+        this.productService = productService;
+    }
 
     @GetMapping("/hello")
     public String message()
@@ -29,16 +33,15 @@ public class Product_Controller {
     }
 
     @GetMapping
-    public List<Product> getProducList()
+    public List<Product> getProductList()
     {
-        return productlist;
+        return productService.getProductList();
     }
 
 
     @PostMapping
     public Product addProduct(@Valid @RequestBody Product product)
     {
-        productlist.add(product);
-        return product;
+        return productService.addProduct(product);
     }
 }
