@@ -44,4 +44,15 @@ public class Product_Controller {
     {
         return productService.addProduct(product);
     }
+
+    @DeleteMapping ("/remove/{id}")
+    public Product removeProduct(@PathVariable long id)
+    {
+        return productService.removeProduct(id);
+    }
+
+    @PutMapping ("/update/{id}")
+    public Product updateProduct(@PathVariable long id, @Valid @RequestBody Product product){
+        return productService.updateProduct(id, product);
+    }
 }
