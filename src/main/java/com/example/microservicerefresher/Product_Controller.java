@@ -10,9 +10,11 @@ import java.util.List;
 @RestController
 public class Product_Controller {
     private ProductService productService;
+    private ProductClient productClient;
     @Autowired
-    public Product_Controller(ProductService productService) {
+    public Product_Controller(ProductService productService, ProductClient productClient) {
         this.productService = productService;
+        this.productClient = productClient;
     }
 
     @GetMapping("/hello")
@@ -39,11 +41,17 @@ public class Product_Controller {
     }
 
 
-    @PostMapping
+    @PostMapping("/confirm")
+    public String confirmProduct(@Valid @RequestBody Product product){
+        String confirm = productClient.someDetails(product);
+        return confirm;
+    }
+   @PostMapping
     public Product addProduct(@Valid @RequestBody Product product)
     {
         return productService.addProduct(product);
     }
+
 
     @DeleteMapping ("/remove/{id}")
     public Product removeProduct(@PathVariable long id)
